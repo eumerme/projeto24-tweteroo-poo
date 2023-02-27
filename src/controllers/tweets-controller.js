@@ -1,4 +1,5 @@
-import { tweets, usuarios } from "../repositories/index.js";
+import { Tweet } from "../models/index.js";
+import { tweets, users } from "../repositories/index.js";
 
 export function createTweet(req, res) {
 	const { tweet, username } = req.body;
@@ -7,9 +8,10 @@ export function createTweet(req, res) {
 		return res.status(400).send("Todos os campos são obrigatórios!");
 	}
 
-	const { avatar } = usuarios.find((user) => user.username === username);
+	const { avatar } = users.find((user) => user.username === username);
 
-	tweets.push({ username, tweet, avatar });
+	const newTweet = new Tweet({ username, tweet, avatar });
+	tweets.push(newTweet);
 
 	return res.status(201).send("OK, seu tweet foi criado");
 }
@@ -24,7 +26,6 @@ export function getUserTweets(req, res) {
 
 export function getTweets(req, res) {
 	const { page } = req.query;
-	console.log("getTweets ", usuarios);
 
 	if (page && page < 1) {
 		res.status(400).send("Informe uma página válida!");
