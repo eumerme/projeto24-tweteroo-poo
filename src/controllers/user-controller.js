@@ -2,6 +2,7 @@ class UserController {
 	constructor() {
 		this.users = [];
 		this.signin = this.signin.bind(this);
+		this.getLoggedUser = this.getLoggedUser.bind(this);
 	}
 
 	signin(req, res) {
@@ -14,6 +15,10 @@ class UserController {
 		this.users.push({ username, avatar });
 
 		return res.status(200).send("OK deu tudo certo");
+	}
+
+	getLoggedUser(username) {
+		return this.users.find((user) => user.username === username);
 	}
 }
 
