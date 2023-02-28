@@ -12,6 +12,11 @@ class UserController {
 			return res.status(400).send("Todos os campos são obrigatórios!");
 		}
 
+		const usernameExists = this.getLoggedUser(username);
+		if (usernameExists) {
+			return res.status(409).send("Nome de usuário já cadastrado!");
+		}
+
 		this.users.push({ username, avatar });
 
 		return res.status(200).send("OK deu tudo certo");
