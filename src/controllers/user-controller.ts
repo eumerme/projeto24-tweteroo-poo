@@ -1,11 +1,16 @@
+import { Request, Response } from "express";
+import { User } from "../models/User";
+
 class UserController {
+	private users: User[];
+
 	constructor() {
 		this.users = [];
 		this.signin = this.signin.bind(this);
 		this.getLoggedUser = this.getLoggedUser.bind(this);
 	}
 
-	signin(req, res) {
+	signin(req: Request, res: Response): Response {
 		const { username, avatar } = req.body;
 
 		if (!username || !avatar) {
@@ -22,8 +27,9 @@ class UserController {
 		return res.status(200).send("OK deu tudo certo");
 	}
 
-	getLoggedUser(username) {
-		return this.users.find((user) => user.username === username);
+	getLoggedUser(username: string): User {
+		const user = this.users.find((user) => user.username === username);
+		return user!;
 	}
 }
 

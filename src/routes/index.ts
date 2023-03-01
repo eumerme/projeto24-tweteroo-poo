@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { tweetsRouter } from "./tweets-route.js";
-import { usersRouter } from "./users-route.js";
+import { tweetsRouter } from "./tweets-route";
+import { usersRouter } from "./users-route";
 
 const router = Router();
 
