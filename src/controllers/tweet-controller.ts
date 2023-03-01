@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Tweet } from "../models/Tweet";
-import userController from "./user-controller";
+import { getLoggedUserService } from "../useCases/Users/getLoggedUser";
 
 class TweetController {
 	private tweets: Tweet[];
@@ -20,7 +20,7 @@ class TweetController {
 			return res.status(400).send("Todos os campos são obrigatórios!");
 		}
 
-		const user = userController.getLoggedUser(username);
+		const user = getLoggedUserService.execute(username);
 		if (!user) {
 			return res.status(404).send("Usuário não encontrado");
 		}
