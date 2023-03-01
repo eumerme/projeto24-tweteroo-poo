@@ -4,7 +4,7 @@ export class UserRepository {
 	private users: User[];
 	private static INSTANCE: UserRepository;
 
-	constructor() {
+	private constructor() {
 		this.users = [];
 	}
 

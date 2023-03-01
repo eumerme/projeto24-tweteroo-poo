@@ -1,11 +1,19 @@
 import { Router } from "express";
-import tweetController from "../controllers/tweet-controller";
+import { createTweetController } from "../useCases/Tweets/createTweet";
+import { getAllTweetsController } from "../useCases/Tweets/getAllTweets";
+import { getTweetsByUserController } from "../useCases/Tweets/getTweetByUser";
 
 const tweetsRouter = Router();
 
 tweetsRouter
-	.post("/tweets", tweetController.create)
-	.get("/tweets", tweetController.getAll)
-	.get("/tweets/:username", tweetController.getByUser);
+	.post("/tweets", (req, res) => {
+		createTweetController.handle(req, res);
+	})
+	.get("/tweets", (req, res) => {
+		getAllTweetsController.handle(req, res);
+	})
+	.get("/tweets/:username", (req, res) => {
+		getTweetsByUserController.handle(req, res);
+	});
 
 export { tweetsRouter };
